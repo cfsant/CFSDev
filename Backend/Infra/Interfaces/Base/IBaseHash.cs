@@ -1,4 +1,4 @@
-﻿namespace CFSDev.Backend.Infra.Base.Interfaces
+﻿namespace CFSDev.Backend.Infra.Interfaces.Base
 {
     public interface IBaseHash : IBase
     {
