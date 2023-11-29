@@ -19,7 +19,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infra", "Infra", "{A3F418A6
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IBase", "Backend\Infra\Base\Interfaces\IBase.csproj", "{A7CE89F6-1184-4BC7-B515-12E5F9E54B28}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Implementation", "Implementation", "{6848C2B3-0459-419E-BAF9-1EC70AF33DC1}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Implementations", "Implementations", "{6848C2B3-0459-419E-BAF9-1EC70AF33DC1}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Interfaces", "Interfaces", "{B83516B5-CA25-46A9-BB55-588CC0B5C712}"
 EndProject
