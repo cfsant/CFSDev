@@ -1,3 +1,9 @@
 **/bin/*
 **/obj/*
 **/.vs/*
+**/Backend/Infra/Interfaces/IBase/obj/*
+**/Backend/Infra/Interfaces/IBase/bin/*
+**/Backend/Infra/Implementations/Base/obj/*
+**/Backend/Infra/Implementations/Base/bin/*
+**/Libs/Cryptography/obj/*
+**/Libs/Cryptography/bin/*
