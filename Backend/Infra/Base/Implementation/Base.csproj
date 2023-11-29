@@ -5,7 +5,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <Version>1.0.0</Version>
-    <PackageId>CFSDev.Beckend.Infra.Base</PackageId>
+    <PackageId>CFSDev.Beckend.Infra.Implementations.Base</PackageId>
     <Authors>Caio F. Santana</Authors>
     <Company>CFS Dev LTDA</Company>
     <RepositoryUrl></RepositoryUrl>
