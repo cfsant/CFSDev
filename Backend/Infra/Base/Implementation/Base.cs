@@ -1,4 +1,4 @@
-﻿using CFSDev.Backend.Infra.Base.Interfaces;
+﻿using CFSDev.Backend.Infra.Interfaces.Base;
 using Newtonsoft.Json;
 using System.ComponentModel.DataAnnotations;
 
