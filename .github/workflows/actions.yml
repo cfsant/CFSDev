@@ -80,10 +80,10 @@ jobs:
           file_path: ${{env.PACKAGES_JSON}}
 
       - name: List loaded PACKAGES
-        run: | 
-        for package in ${{steps.PACKAGES.outputs}}; do
-          echo "$package"
-        done
+        run: |
+          for package in ${{steps.PACKAGES.outputs}}; do
+            echo "$package"
+          done
 
       # Add .packages.json to ENVIRONMENT VARIABLES
       # Load package.json into steps
@@ -94,10 +94,10 @@ jobs:
           file_path: ${{env.PROJECTS_JSON}}
 
       - name: List loaded PROJECTS
-        run: | 
-        for project in ${{steps.PROJECTS.outputs}}; do
-          echo "$project"
-        done
+        run: |
+          for project in ${{steps.PROJECTS.outputs}}; do
+            echo "$project"
+          done
 
       # Execute all unit tests in the solution
       # - name: Execute unit tests
