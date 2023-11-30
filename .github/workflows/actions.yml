@@ -78,6 +78,7 @@ jobs:
         uses: notiz-dev/github-action-json-property@release
         with:
           path: "${{env.PACKAGES_JSON}}"
+          prop_path: "packages"
 
       - name: List loaded PACKAGES
         run: echo ${{steps.PACKAGES.outputs.propStr}}
@@ -88,6 +89,7 @@ jobs:
         uses: notiz-dev/github-action-json-property@release
         with:
           path: "${{env.PROJECTS_JSON}}"
+          prop_path: "projects"
 
       - name: List loaded PROJECTS
         run: echo ${{steps.PROJECTS.outputs.propStr}}

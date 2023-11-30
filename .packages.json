@@ -1,14 +1,16 @@
-[
-    {
-        "name": "CFSDev.Libs.Cryptography",
-        "version": "1.0.0"
-    },
-    {
-        "name": "CFSDev.Beckend.Infra.Interfaces.IBase",
-        "version": "1.0.0"
-    },
-    {
-        "name": "CFSDev.Beckend.Infra.Implementations.Base",
-        "version": "1.0.0"
-    }
-]
+{
+    "packages": [
+        {
+            "name": "CFSDev.Libs.Cryptography",
+            "version": "1.0.0"
+        },
+        {
+            "name": "CFSDev.Beckend.Infra.Interfaces.IBase",
+            "version": "1.0.0"
+        },
+        {
+            "name": "CFSDev.Beckend.Infra.Implementations.Base",
+            "version": "1.0.0"
+        }
+    ]
+}
