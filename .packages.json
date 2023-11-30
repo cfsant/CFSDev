@@ -1,0 +1,5 @@
+{
+    "CFSDev.Libs.Cryptography": "1.0.0",
+    "CFSDev.Beckend.Infra.Interfaces.IBase": "1.0.0",
+    "CFSDev.Beckend.Infra.Implementations.Base": "1.0.0"
+}

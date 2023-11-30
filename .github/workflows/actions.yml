@@ -46,33 +46,54 @@ on:
 
 jobs:
   build:
-    strategy:
-      matrix:
-        configuration: [Debug, Release]
-
     runs-on:
       windows-latest # For a list of available runner types, refer to
       # https://help.github.com/en/actions/reference/workflow-syntax-for-github-actions#jobsjob_idruns-on
 
     env:
-      Solution_Name: CFSDev.sln # Replace with your solution name, i.e. MyWpfApp.sln.
-      Test_Project_Path: UnitTests\Libs\Cryptography.Tests\Cryptography.Tests.csproj # Replace with the path to your test project, i.e. MyWpfApp.Tests\MyWpfApp.Tests.csproj.
+      SOLUTION: CFSDev.sln # Replace with your solution name, i.e. CFSDev.sln.
+      DOTNET_VERSION: 6.0.x
+      PACKAGES_JSON: .packages.json # Replace with your packages.json fullpath, i.e. .packages.json.
+      PACKAGES_ENV_PREFIX: PACKAGES # Replace with your packages.json prefix into environment variables, i.e. PACKAGE.
+      PROJECTS_JSON: .projects.json # Replace with your projects.json fullpath, i.e. .projects.json.
+      PROJECTS_ENV_PREFIX: PROJECTS # Replace with your projects.json prefix into environment variables, i.e. PROJECT.
 
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
 
       # Install the .NET Core workload
       - name: Install .NET Core
         uses: actions/setup-dotnet@v3
         with:
-          dotnet-version: 6.0.x
+          dotnet-version: $env.DOTNET_VERSION
 
       # Add  MSBuild to the PATH: https://github.com/microsoft/setup-msbuild
       - name: Setup MSBuild.exe
         uses: microsoft/setup-msbuild@v1.1
+
+      # Load package.json into steps
+      - name: Load package.json into steps
+        id: $env.PACKAGES_ENV_PREFIX
+        uses: zoexx/github-action-json-file-properties@release
+        with:
+          file_path: $env.PACKAGES_JSON
+          prop_path: "$env.PACKAGES_ENV_PREFIX"
+
+      - name: List loaded PACKAGES
+        run: echo ${{steps.PACKAGES.outputs}}
+
+      # Add .packages.json to ENVIRONMENT VARIABLES
+      # Load package.json into steps
+      - name: Load projects.json into steps
+        id: $env.PROJECTS_ENV_PREFIX
+        uses: zoexx/github-action-json-file-properties@release
+        with:
+          file_path: $env.PROJECTS_JSON
+          prop_path: "$env.PROJECTS_ENV_PREFIX"
+
+      - name: List loaded PROJECTS
+        run: echo ${{steps.PROJECTS.outputs}}
 
       # Execute all unit tests in the solution
       # - name: Execute unit tests
@@ -80,8 +101,8 @@ jobs:
 
       # Restore the application to populate the obj folder with RuntimeIdentifiers
       - name: Restore the application
-        run: msbuild $env:Solution_Name /t:Restore -p:RestorePackagesConfig=true
+        run: msbuild $env:SOLUTION /t:Restore -p:RestorePackagesConfig=true
 
       # Update all nuget packages in the solution
       - name: Update Nuget packages
-        run: Update-Package -ProjectName $env:Solution_Name
+        run: Update-Package -ProjectName $env:SOLUTION
