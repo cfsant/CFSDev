@@ -86,7 +86,6 @@ jobs:
           prop_path: "values"
 
       - name: List loaded PACKAGES
-        shell: pwsh
         run: |
           foreach($package in ($packages | select-object -property values)){
             echo $packages
@@ -106,7 +105,6 @@ jobs:
           prop_path: "values"
 
       - name: List loaded PROJECTS
-        shell: pwsh
         run: |
           foreach($project in ($projects | select-object -property values)){
             echo $project
