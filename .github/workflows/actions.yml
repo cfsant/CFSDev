@@ -74,7 +74,6 @@ jobs:
 
       # Load package.json into pwsh variable
       - name: Load package.json into pwsh variable
-        shell: pwsh
         run: $packages=(Get-Content -Raw "${{env.PACKAGES_JSON}}" | ConvertFrom-Json)
 
       # Load package.json into steps
@@ -93,7 +92,6 @@ jobs:
 
       # Load projects.json into pwsh variable
       - name: Load projects.json into pwsh variable
-        shell: pwsh
         run: $projects=(Get-Content -Raw "${{env.PROJECTS_JSON}}" | ConvertFrom-Json)
 
       # Load projects.json into steps
