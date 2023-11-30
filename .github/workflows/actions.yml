@@ -76,7 +76,7 @@ jobs:
       - name: Load package.json into pwsh variable
         run: |
           $packages=(Get-Content -Raw "${{env.PACKAGES_JSON}}" | ConvertFrom-Json | Select-Object -Property values)
-          [string]::Format("Loaded {0} packages from .packages.json")
+          [string]::Format("Loaded {0} packages from .packages.json", $packages.Length)
           foreach($package in $packages){
             [string]::Format("Package: {0} Version: {1}", $package.name, $package.version)
           }
