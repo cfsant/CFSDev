@@ -58,8 +58,8 @@ jobs:
     env:
       Solution_Name: CFSDev.sln                                                           # Replace with your solution name, i.e. MyWpfApp.sln.
       Test_Project_Path: UnitTests\Libs\Cryptography.Tests\Cryptography.Tests.csproj      # Replace with the path to your test project, i.e. MyWpfApp.Tests\MyWpfApp.Tests.csproj.
-      Wap_Project_Directory: ${{ github.workspace }}\CFSDev\bin\CFSDev.Package            # Replace with the Wap project directory relative to the solution, i.e. MyWpfApp.Package.
-      Wap_Project_Path: ${{ github.workspace }}\CFSDev\bin\wap\CFSDev.Package.wapproj     # Replace with the path to your Wap project, i.e. MyWpf.App.Package\MyWpfApp.Package.wapproj.
+      Wap_Project_Directory: CFSDev\bin\CFSDev.Package                                    # Replace with the Wap project directory relative to the solution, i.e. MyWpfApp.Package.
+      Wap_Project_Path: CFSDev\bin\wap\CFSDev.Package.wapproj                             # Replace with the path to your Wap project, i.e. MyWpf.App.Package\MyWpfApp.Package.wapproj.
 
     steps:
     - name: Checkout
