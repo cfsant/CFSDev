@@ -88,7 +88,9 @@ jobs:
       - name: List loaded PACKAGES
         shell: pwsh
         run: |
-          $packages | ForEach-Object {echo $_.values}
+          foreach($package in ($packages | select-object -property values)){
+            echo $packages
+          }
 
       # Load projects.json into pwsh variable
       - name: Load projects.json into pwsh variable
@@ -106,7 +108,9 @@ jobs:
       - name: List loaded PROJECTS
         shell: pwsh
         run: |
-          $projects | ForEach-Object {echo $_.values}
+          foreach($project in ($projects | select-object -property values)){
+            echo $project
+          }
 
       # Execute all unit tests in the solution
       # - name: Execute unit tests
