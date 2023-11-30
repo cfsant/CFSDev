@@ -74,7 +74,7 @@ jobs:
 
       # Load package.json into steps
       - name: Load package.json into steps
-        id: $env.PACKAGES_ENV_PREFIX
+        id: PACKAGES
         uses: zoexx/github-action-json-file-properties@release
         with:
           file_path: $env.PACKAGES_JSON
@@ -86,7 +86,7 @@ jobs:
       # Add .packages.json to ENVIRONMENT VARIABLES
       # Load package.json into steps
       - name: Load projects.json into steps
-        id: $env.PROJECTS_ENV_PREFIX
+        id: PROJECTS
         uses: zoexx/github-action-json-file-properties@release
         with:
           file_path: $env.PROJECTS_JSON
