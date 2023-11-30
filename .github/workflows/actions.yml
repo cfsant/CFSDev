@@ -82,7 +82,11 @@ jobs:
 
       - name: List loaded PACKAGES
         shell: pwsh
-        run: echo "${{steps.PACKAGES.outputs.propStr}}"
+        run: |
+          echo "Packages with version:"
+          foreach($package in steps.PACKAGES.outputs.prop){
+            echo "- $package.name v$package.version"
+          }
 
       # Load package.json into steps
       - name: Load projects.json into steps
@@ -93,16 +97,20 @@ jobs:
           prop_path: "values"
 
       - name: List loaded PROJECTS
-        run: echo "${{steps.PROJECTS.outputs.propStr}}"
+        run: |
+          echo "Projects with path:"
+          foreach($project in steps.PROJECTS.outputs.prop){
+            echo "- $project.name path '$project.path'"
+          }
 
       # Execute all unit tests in the solution
       # - name: Execute unit tests
       #  run: dotnet test
 
       # Restore the application to populate the obj folder with RuntimeIdentifiers
-      - name: Restore the application
-        run: msbuild $env:SOLUTION /t:Restore -p:RestorePackagesConfig=true
+      #- name: Restore the application
+      #  run: msbuild $env:SOLUTION /t:Restore -p:RestorePackagesConfig=true
 
       # Update all nuget packages in the solution
-      - name: Update Nuget packages
-        run: Update-Package -ProjectName $env:SOLUTION
+      #- name: Update Nuget packages
+      #  run: Update-Package -ProjectName $env:SOLUTION
