@@ -74,28 +74,23 @@ jobs:
 
       # Load package.json into steps
       - name: Load package.json into steps
-        shell: pwsh
-        run: $packages=Get-Content -Path "${{env.PACKAGES_JSON}}"
+        id: PACKAGES
+        uses: notiz-dev/github-action-json-property@release
+        with:
+          path: "${{env.PACKAGES_JSON}}"
 
       - name: List loaded PACKAGES
-        shell: pwsh
-        run: |
-          foreach($package in $packages){ 
-            Write-Output "package '$package.name' version '$package.version'"
-          }
+        run: echo ${{steps.PACKAGES.outputs.propStr}}
 
-      # Add .packages.json to ENVIRONMENT VARIABLES
       # Load package.json into steps
       - name: Load projects.json into steps
-        shell: pwsh
-        run: $projects=Get-Content -Path "${{env.PROJECTS_JSON}}"
+        id: PROJECTS
+        uses: notiz-dev/github-action-json-property@release
+        with:
+          path: "${{env.PROJECTS_JSON}}"
 
       - name: List loaded PROJECTS
-        shell: pwsh
-        run: |
-          foreach($project in $projects){ 
-            Write-Output "project '$project.name' path '$project.path'" 
-          }
+        run: echo ${{steps.PROJECTS.outputs.propStr}}
 
       # Execute all unit tests in the solution
       # - name: Execute unit tests
