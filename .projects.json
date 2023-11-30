@@ -1,5 +1,5 @@
 {
-    "projects":[
+    "values":[
         {
             "name": "CFSDev.Libs.Cryptography",
             "path": "Libs/Cryptography/Cryptography.csproj"

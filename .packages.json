@@ -1,5 +1,5 @@
 {
-    "packages": [
+    "values": [
         {
             "name": "CFSDev.Libs.Cryptography",
             "version": "1.0.0"
