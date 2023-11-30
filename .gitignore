@@ -7,3 +7,5 @@
 **/Backend/Infra/Implementations/Base/bin/*
 **/Libs/Cryptography/obj/*
 **/Libs/Cryptography/bin/*
+**/UnitTests/Libs/Cryptography.Tests/obj/*
+**/UnitTests/Libs/Cryptography.Tests/bin/*
