@@ -84,7 +84,7 @@ jobs:
         shell: pwsh
         run: |
           echo "Packages with version:"
-          foreach($package in steps.PACKAGES.outputs.prop){
+          foreach($package in ${{steps.PACKAGES.outputs.prop}}){
             echo "- $package.name v$package.version"
           }
 
@@ -99,7 +99,7 @@ jobs:
       - name: List loaded PROJECTS
         run: |
           echo "Projects with path:"
-          foreach($project in steps.PROJECTS.outputs.prop){
+          foreach($project in ${{steps.PROJECTS.outputs.prop}}){
             echo "- $project.name path '$project.path'"
           }
 
