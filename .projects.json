@@ -1,0 +1,5 @@
+{
+    "CFSDev.Libs.Cryptography": "Libs/Cryptography/Cryptography.csproj",
+    "CFSDev.Beckend.Infra.Interfaces.IBase": "Backend/Infra/Interfaces/Base/IBase.csproj",
+    "CFSDev.Beckend.Infra.Implementations.Base": "Backend/Infra/Implementations/Base/Base.csproj"
+}
