@@ -79,7 +79,10 @@ jobs:
 
       - name: List loaded PACKAGES
         shell: pwsh
-        run: foreach($package in $packages){ echo package '$package.name' version '$package.version' }
+        run: |
+          foreach($package in $packages){ 
+            Write-Output "package '$package.name' version '$package.version'"
+          }
 
       # Add .packages.json to ENVIRONMENT VARIABLES
       # Load package.json into steps
@@ -89,7 +92,10 @@ jobs:
 
       - name: List loaded PROJECTS
         shell: pwsh
-        run: foreach($project in $projects){ echo project '$project.name' path '$project.path' }
+        run: |
+          foreach($project in $projects){ 
+            Write-Output "project '$project.name' path '$project.path'" 
+          }
 
       # Execute all unit tests in the solution
       # - name: Execute unit tests
