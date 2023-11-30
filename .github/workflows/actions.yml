@@ -81,7 +81,8 @@ jobs:
           prop_path: "values"
 
       - name: List loaded PACKAGES
-        run: echo ${{steps.PACKAGES.outputs.propStr}}
+        shell: pwsh
+        run: echo "${{steps.PACKAGES.outputs.propStr}}"
 
       # Load package.json into steps
       - name: Load projects.json into steps
@@ -92,7 +93,7 @@ jobs:
           prop_path: "values"
 
       - name: List loaded PROJECTS
-        run: echo ${{steps.PROJECTS.outputs.propStr}}
+        run: echo "${{steps.PROJECTS.outputs.propStr}}"
 
       # Execute all unit tests in the solution
       # - name: Execute unit tests
