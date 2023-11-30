@@ -77,10 +77,16 @@ jobs:
         run: |
           $raw=(Get-Content -Raw "${{env.PACKAGES_JSON}}" | ConvertFrom-Json)
           $packages=($raw | Select-Object -Property values)
-          [string]::Format("Raw: {0}", $raw)
-          [string]::Format("Packages: {0}", $packages)
+          echo "Raw:"
+          echo $raw
+          echo "Packages:"
+          echo $packages
+          $countX=-1
+          $countY=-1
           foreach($package in $packages){
+            [string]::Format("[{0}]",$countX++)
             foreach($p in $package){
+              [string]::Format("[{0}]",$countY++)
               echo $p
             }
           }
