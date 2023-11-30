@@ -75,51 +75,8 @@ jobs:
       # Load package.json into pwsh variable
       - name: Load package.json into pwsh variable
         run: |
-          $packages=(Get-Content -Raw "${{env.PACKAGES_JSON}}" | ConvertFrom-Json)
-          echo ($packages | select-object -property values)
-
-      # Load package.json into steps
-      - name: Load package.json into steps
-        id: PACKAGES
-        uses: notiz-dev/github-action-json-property@release
-        with:
-          path: "${{env.PACKAGES_JSON}}"
-          prop_path: "values"
-
-      - name: List loaded PACKAGES
-        run: |
-          foreach($package in ($packages | select-object -property values)){
+          $packages=(Get-Content -Raw "${{env.PACKAGES_JSON}}" | ConvertFrom-Json | Select-Object -Property values)
+          [string]::Format("Loaded {0} packages from .packages.json")
+          foreach($package in $packages){
             [string]::Format("Package: {0} Version: {1}", $package.name, $package.version)
           }
-
-      # Load projects.json into pwsh variable
-      - name: Load projects.json into pwsh variable
-        run: |
-          $projects=(Get-Content -Raw "${{env.PROJECTS_JSON}}" | ConvertFrom-Json)
-          echo ($projects | select-object -property values)
-
-      # Load projects.json into steps
-      - name: Load projects.json into steps
-        id: PROJECTS
-        uses: notiz-dev/github-action-json-property@release
-        with:
-          path: "${{env.PROJECTS_JSON}}"
-          prop_path: "values"
-
-      - name: List loaded PROJECTS
-        run: |
-          foreach($project in ($projects | select-object -property values)){
-            [string]::Format("Project: {0} Path: {1}", $project.name, $project.path)
-          }
-
-      # Execute all unit tests in the solution
-      # - name: Execute unit tests
-      #  run: dotnet test
-
-      # Restore the application to populate the obj folder with RuntimeIdentifiers
-      #- name: Restore the application
-      #  run: msbuild $env:SOLUTION /t:Restore -p:RestorePackagesConfig=true
-
-      # Update all nuget packages in the solution
-      #- name: Update Nuget packages
-      #  run: Update-Package -ProjectName $env:SOLUTION
