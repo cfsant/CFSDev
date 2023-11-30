@@ -80,5 +80,7 @@ jobs:
           [string]::Format("Raw: {0}", $raw)
           [string]::Format("Packages: {0}", $packages)
           foreach($package in $packages){
-            echo $package
+            foreach($p in $package){
+              echo $p
+            }
           }
