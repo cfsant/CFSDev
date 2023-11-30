@@ -1,14 +1,16 @@
-[
-    {
-        "name": "CFSDev.Libs.Cryptography",
-        "path": "Libs/Cryptography/Cryptography.csproj"
-    },
-    {
-        "name": "CFSDev.Beckend.Infra.Interfaces.IBase",
-        "path": "Backend/Infra/Interfaces/Base/IBase.csproj"
-    },
-    {
-        "name": "CFSDev.Beckend.Infra.Implementations.Base",
-        "path": "Backend/Infra/Implementations/Base/Base.csproj"
-    }
-]
+{
+    "projects":[
+        {
+            "name": "CFSDev.Libs.Cryptography",
+            "path": "Libs/Cryptography/Cryptography.csproj"
+        },
+        {
+            "name": "CFSDev.Beckend.Infra.Interfaces.IBase",
+            "path": "Backend/Infra/Interfaces/Base/IBase.csproj"
+        },
+        {
+            "name": "CFSDev.Beckend.Infra.Implementations.Base",
+            "path": "Backend/Infra/Implementations/Base/Base.csproj"
+        }
+    ]
+}
