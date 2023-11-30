@@ -72,6 +72,11 @@ jobs:
       - name: Setup MSBuild.exe
         uses: microsoft/setup-msbuild@v1.1
 
+      # Load package.json into pwsh variable
+      - name: Load package.json into pwsh variable
+        shell: pwsh
+        run: $packages=(Get-Content -Raw "${{env.PACKAGES_JSON}}" | ConvertFrom-Json)
+
       # Load package.json into steps
       - name: Load package.json into steps
         id: PACKAGES
@@ -82,13 +87,14 @@ jobs:
 
       - name: List loaded PACKAGES
         shell: pwsh
-        run: |
-          echo "Packages with version:"
-          foreach($package in ${{steps.PACKAGES.outputs.prop}}){
-            echo "- $package.name v$package.version"
-          }
+        run: $packages | ForEach-Object {echo $_.values}
 
-      # Load package.json into steps
+      # Load projects.json into pwsh variable
+      - name: Load projects.json into pwsh variable
+        shell: pwsh
+        run: $projects=(Get-Content -Raw "${{env.PROJECTS_JSON}}" | ConvertFrom-Json)
+
+      # Load projects.json into steps
       - name: Load projects.json into steps
         id: PROJECTS
         uses: notiz-dev/github-action-json-property@release
@@ -97,11 +103,8 @@ jobs:
           prop_path: "values"
 
       - name: List loaded PROJECTS
-        run: |
-          echo "Projects with path:"
-          foreach($project in ${{steps.PROJECTS.outputs.prop}}){
-            echo "- $project.name path '$project.path'"
-          }
+        shell: pwsh
+        run: $projects | ForEach-Object {echo $_.values}
 
       # Execute all unit tests in the solution
       # - name: Execute unit tests
