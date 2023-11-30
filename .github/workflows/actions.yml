@@ -82,7 +82,7 @@ jobs:
       - name: List loaded PACKAGES
         run: | 
         for package in ${{steps.PACKAGES.outputs}}; do
-          echo $package
+          echo "$package"
         done
 
       # Add .packages.json to ENVIRONMENT VARIABLES
@@ -96,7 +96,7 @@ jobs:
       - name: List loaded PROJECTS
         run: | 
         for project in ${{steps.PROJECTS.outputs}}; do
-          echo $project
+          echo "$project"
         done
 
       # Execute all unit tests in the solution
