@@ -87,7 +87,7 @@ jobs:
       - name: List loaded PACKAGES
         run: |
           foreach($package in ($packages | select-object -property values)){
-            echo $packages
+            [string]::Format("Package: {0} Version: {1}", $package.name, $package.version)
           }
 
       # Load projects.json into pwsh variable
@@ -105,7 +105,7 @@ jobs:
       - name: List loaded PROJECTS
         run: |
           foreach($project in ($projects | select-object -property values)){
-            echo $project
+            [string]::Format("Project: {0} Path: {1}", $project.name, $project.path)
           }
 
       # Execute all unit tests in the solution
