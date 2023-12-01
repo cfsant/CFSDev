@@ -60,10 +60,12 @@ jobs:
       matrix: ${{ steps.set-matrix.outputs.matrix }}
 
     steps:
-      - id: set-matrix
-        run: |
-          ls
-          echo "matrix=$(jq -c . < ${{env.PACKAGES_JSON}})" >> $GITHUB_OUTPUT
+      - name: List workspace directory
+        run: ls
+
+      - name: Configure packages into matrix
+        run: echo "matrix=$(jq -c . < ${{ github.workspace }}/${{env.PACKAGES_JSON}})" >> $GITHUB_OUTPUT
+
   build:
     runs-on: windows-latest
     needs: configure
