@@ -61,13 +61,13 @@ jobs:
 
     steps:
       - id: set-matrix
-        run: echo "matrix=$(jq -c . < ./config.json)" >> $GITHUB_OUTPUT
+        run: echo "matrix=$(jq -c . < ./${{env.PACKAGES_JSON}})" >> $GITHUB_OUTPUT
   build:
     runs-on: windows-latest
     needs: configure
 
     strategy:
-      matrix: ${{fromJson(needs.job1.outputs.matrix)}}
+      matrix: ${{fromJson(needs.configure.outputs.matrix)}}
 
     steps:
       - name: Checkout
