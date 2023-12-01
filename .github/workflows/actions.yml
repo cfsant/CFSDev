@@ -78,9 +78,8 @@ jobs:
           $raw=(Get-Content -Raw "${{env.PACKAGES_JSON}}" | ConvertFrom-Json)
           $packages=($raw | Select-Object -Property values)
           $packages | Get-Member | Where-Object {$_.MemberType -eq 'NoteProperty'} | foreach {
-            $element = $_.Name
-            echo 'Property Name: '
-            echo $element
-            echo 'Elements: '
-            echo ($t.$element.value | ConvertTo-Json -Depth 99)
+            echo $_.Name
+            foreach($x in ($_ | Get-Member | Select-Object name, version)) {
+              [string]::Format("Package: {0} Version: {1}", $x.name, $x.version)
+            }
           }
