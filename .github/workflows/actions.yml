@@ -61,7 +61,9 @@ jobs:
 
     steps:
       - id: set-matrix
-        run: echo "matrix=$(jq -c . < ./${{env.PACKAGES_JSON}})" >> $GITHUB_OUTPUT
+        run: |
+          ls
+          echo "matrix=$(jq -c . < ${{env.PACKAGES_JSON}})" >> $GITHUB_OUTPUT
   build:
     runs-on: windows-latest
     needs: configure
