@@ -1,42 +1,4 @@
-# This workflow uses actions that are not certified by GitHub.
-# They are provided by a third-party and are governed by
-# separate terms of service, privacy policy, and support
-# documentation.
-
-# This workflow will build, test, sign and package a WPF or Windows Forms desktop application
-# built on .NET Core.
-# To learn how to migrate your existing application to .NET Core,
-# refer to https://docs.microsoft.com/en-us/dotnet/desktop-wpf/migration/convert-project-from-net-framework
-#
-# To configure this workflow:
-#
-# 1. Configure environment variables
-# GitHub sets default environment variables for every workflow run.
-# Replace the variables relative to your project in the "env" section below.
-#
-# 2. Signing
-# Generate a signing certificate in the Windows Application
-# Packaging Project or add an existing signing certificate to the project.
-# Next, use PowerShell to encode the .pfx file using Base64 encoding
-# by running the following Powershell script to generate the output string:
-#
-# $pfx_cert = Get-Content '.\SigningCertificate.pfx' -Encoding Byte
-# [System.Convert]::ToBase64String($pfx_cert) | Out-File 'SigningCertificate_Encoded.txt'
-#
-# Open the output file, SigningCertificate_Encoded.txt, and copy the
-# string inside. Then, add the string to the repo as a GitHub secret
-# and name it "Base64_Encoded_Pfx."
-# For more information on how to configure your signing certificate for
-# this workflow, refer to https://github.com/microsoft/github-actions-for-desktop-apps#signing
-#
-# Finally, add the signing certificate password to the repo as a secret and name it "Pfx_Key".
-# See "Build the Windows Application Packaging project" below to see how the secret is used.
-#
-# For more information on GitHub Actions, refer to https://github.com/features/actions
-# For a complete CI/CD sample to get started with GitHub Action workflows for Desktop Applications,
-# refer to https://github.com/microsoft/github-actions-for-desktop-apps
-
-name: .NET Core Desktop
+name: CFSDev based on .NET Core 6.0.x
 
 on:
   push:
@@ -45,30 +7,12 @@ on:
     branches: ["release", "master"]
 
 env:
-  SOLUTION: CFSDev.sln # Replace with your solution name, i.e. CFSDev.sln.
-  DOTNET_VERSION: 6.0.x
-  PACKAGES_JSON: .packages.json # Replace with your packages.json fullpath, i.e. .packages.json.
-  PACKAGES_ENV_PREFIX: PACKAGES # Replace with your packages.json prefix into environment variables, i.e. PACKAGE.
-  PROJECTS_JSON: .projects.json # Replace with your projects.json fullpath, i.e. .projects.json.
-  PROJECTS_ENV_PREFIX: PROJECTS # Replace with your projects.json prefix into environment variables, i.e. PROJECT.
+  SOLUTION: CFSDev.sln  # Replace with your solution name, i.e. CFSDev.sln.
+  DOTNET_VERSION: 6.0.x # Replace with your .NET version, i.e. 6.0.x.
 
 jobs:
-  configure:
-    runs-on: windows-latest
-
-    outputs:
-      matrix: ${{ steps.set-matrix.outputs.matrix }}
-
-    steps:
-      - name: Configure packages into matrix
-        run: echo "matrix=$(jq -c . < ${{env.PACKAGES_JSON}})" >> $GITHUB_OUTPUT
-
   build:
     runs-on: windows-latest
-    needs: configure
-
-    strategy:
-      matrix: ${{fromJson(needs.configure.outputs.matrix)}}
 
     steps:
       - name: Checkout
@@ -78,12 +22,16 @@ jobs:
       - name: Install .NET Core
         uses: actions/setup-dotnet@v3
         with:
-          dotnet-version: 6.0.x
+          dotnet-version: ${{env.DOTNET_VERSION}}
 
       # Add  MSBuild to the PATH: https://github.com/microsoft/setup-msbuild
       - name: Setup MSBuild.exe
         uses: microsoft/setup-msbuild@v1.1
 
-      # Show matrix configurations
-      - name: Show matrix configurations
-        run: echo "- Package ${{ matrix.name }} Version ${{ matrix.version }}"
+      # Build CFSDev solution
+      - name: Build CFSDev solution in RELEASE
+        run: dotnet build --configuration Release
+      
+      # Build CFSDev solution
+      - name: xUnit Tests
+        run: dotnet test --configuration Release --no-build
