@@ -44,19 +44,30 @@ on:
   pull_request:
     branches: ["release"]
 
+env:
+  SOLUTION: CFSDev.sln # Replace with your solution name, i.e. CFSDev.sln.
+  DOTNET_VERSION: 6.0.x
+  PACKAGES_JSON: .packages.json # Replace with your packages.json fullpath, i.e. .packages.json.
+  PACKAGES_ENV_PREFIX: PACKAGES # Replace with your packages.json prefix into environment variables, i.e. PACKAGE.
+  PROJECTS_JSON: .projects.json # Replace with your projects.json fullpath, i.e. .projects.json.
+  PROJECTS_ENV_PREFIX: PROJECTS # Replace with your projects.json prefix into environment variables, i.e. PROJECT.
+
 jobs:
   configure:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
+
     outputs:
       matrix: ${{ steps.set-matrix.outputs.matrix }}
+
+    steps:
+      - id: set-matrix
+        run: echo "matrix=$(jq -c . < ./config.json)" >> $GITHUB_OUTPUT
   build:
-    env:
-      SOLUTION: CFSDev.sln # Replace with your solution name, i.e. CFSDev.sln.
-      DOTNET_VERSION: 6.0.x
-      PACKAGES_JSON: .packages.json # Replace with your packages.json fullpath, i.e. .packages.json.
-      PACKAGES_ENV_PREFIX: PACKAGES # Replace with your packages.json prefix into environment variables, i.e. PACKAGE.
-      PROJECTS_JSON: .projects.json # Replace with your projects.json fullpath, i.e. .projects.json.
-      PROJECTS_ENV_PREFIX: PROJECTS # Replace with your projects.json prefix into environment variables, i.e. PROJECT.
+    runs-on: windows-latest
+    needs: configure
+
+    strategy:
+      matrix: ${{fromJson(needs.job1.outputs.matrix)}}
 
     steps:
       - name: Checkout
@@ -72,14 +83,6 @@ jobs:
       - name: Setup MSBuild.exe
         uses: microsoft/setup-msbuild@v1.1
 
-      # Load package.json into pwsh variable
-      - name: Set matrix data
-        id: set-matrix
-        run: echo "matrix=$(jq -c . < ./${{ env.PROJECTS_JSON }})" >> $GITHUB_OUTPUT
-  print:
-    runs-on: windows-latest
-    needs: configure
-    strategy:
-      matrix: ${{ fromJson(needs.configure.outputs.matrix) }}
-    steps:
-      - run: echo ${{ matrix.name }}
+      # Show matrix configurations
+      - name: Show matrix configurations
+        run: echo "- Package ${{ matrix.name }} Version ${{ matrix.version }}"
