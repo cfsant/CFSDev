@@ -77,16 +77,10 @@ jobs:
         run: |
           $raw=(Get-Content -Raw "${{env.PACKAGES_JSON}}" | ConvertFrom-Json)
           $packages=($raw | Select-Object -Property values)
-          echo "Raw:"
-          echo $raw
-          echo "Packages:"
-          echo $packages
-          $countX=-1
-          $countY=-1
-          foreach($package in $packages){
-            [string]::Format("[{0}]",$countX++)
-            foreach($p in $package){
-              [string]::Format("[{0}]",$countY++)
-              echo $p
-            }
+          $packages | Get-Member | Where-Object {$_.MemberType -eq 'NoteProperty'} | foreach {
+            $element = $_.Name
+            echo 'Property Name: '
+            echo $element
+            echo 'Elements: '
+            echo ($t.$element.value | ConvertTo-Json -Depth 99)
           }
