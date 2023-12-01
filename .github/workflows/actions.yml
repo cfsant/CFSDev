@@ -45,11 +45,11 @@ on:
     branches: ["release"]
 
 jobs:
+  configure:
+    runs-on: windows-latest
+    outputs:
+      matrix: ${{ steps.set-matrix.outputs.matrix }}
   build:
-    runs-on:
-      windows-latest # For a list of available runner types, refer to
-      # https://help.github.com/en/actions/reference/workflow-syntax-for-github-actions#jobsjob_idruns-on
-
     env:
       SOLUTION: CFSDev.sln # Replace with your solution name, i.e. CFSDev.sln.
       DOTNET_VERSION: 6.0.x
@@ -73,15 +73,13 @@ jobs:
         uses: microsoft/setup-msbuild@v1.1
 
       # Load package.json into pwsh variable
-      - name: Load package.json into pwsh variable
-        run: |
-          $raw=(Get-Content -Raw "${{env.PACKAGES_JSON}}" | ConvertFrom-Json)
-          $packages=($raw | Select-Object -Property values)
-          $packages | Get-Member | Where-Object {$_.MemberType -eq 'NoteProperty'} | foreach {
-            echo $_.Name
-            echo "Raw:"
-            echo $_
-            foreach($x in ($_.values | Select-Object name, version)) {
-              [string]::Format("Package: {0} Version: {1}", $x.name, $x.version)
-            }
-          }
+      - name: Set matrix data
+        id: set-matrix
+        run: echo "matrix=$(jq -c . < ./${{ env.PROJECTS_JSON }})" >> $GITHUB_OUTPUT
+  print:
+    runs-on: windows-latest
+    needs: configure
+    strategy:
+      matrix: ${{ fromJson(needs.configure.outputs.matrix) }}
+    steps:
+      - run: echo ${{ matrix.name }}
