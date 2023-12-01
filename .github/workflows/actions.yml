@@ -79,6 +79,8 @@ jobs:
           $packages=($raw | Select-Object -Property values)
           $packages | Get-Member | Where-Object {$_.MemberType -eq 'NoteProperty'} | foreach {
             echo $_.Name
+            echo "Raw:"
+            echo $_
             foreach($x in ($_.values | Select-Object name, version)) {
               [string]::Format("Package: {0} Version: {1}", $x.name, $x.version)
             }
