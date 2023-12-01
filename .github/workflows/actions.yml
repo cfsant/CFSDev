@@ -73,7 +73,7 @@ jobs:
 
     steps:
       - name: Setup JQ
-        uses: dcarbone/install-jq-action@v2
+        uses: dcarbone/install-jq-action@v1.7
         with:
           version: '${{ inputs.version }}'
           force: '${{ inputs.force }}'
