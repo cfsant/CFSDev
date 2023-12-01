@@ -43,6 +43,18 @@ on:
     branches: ["release"]
   pull_request:
     branches: ["release"]
+  workflow_dispatch:
+    inputs:
+      version:
+        type: string
+        required: false
+        description: 'Version of jq to install'
+        default: '1.7'
+      force:
+        type: boolean
+        required: false
+        description: 'Do not check for existing jq installation before continuing.'
+        default: false
 
 env:
   SOLUTION: CFSDev.sln # Replace with your solution name, i.e. CFSDev.sln.
@@ -54,14 +66,22 @@ env:
 
 jobs:
   configure:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
 
     outputs:
       matrix: ${{ steps.set-matrix.outputs.matrix }}
 
     steps:
-      - name: List workspace directory
-        run: ls
+      - name: Setup JQ
+        uses: dcarbone/install-jq-action@v2
+        with:
+          version: '${{ inputs.version }}'
+          force: '${{ inputs.force }}'
+
+      - name: Check JQ
+        run: |
+          Get-Command "jq.exe"
+          jq.exe --version
 
       - name: Configure packages into matrix
         run: echo "matrix=$(jq -c . < ${{ github.workspace }}/${{env.PACKAGES_JSON}})" >> $GITHUB_OUTPUT
