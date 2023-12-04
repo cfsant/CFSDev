@@ -1,4 +1,6 @@
-﻿namespace Backend.Infra.Interfaces.Exceptions
+﻿using CFSDev.Backend.Infra.Interfaces.Exceptions;
+
+namespace Backend.Infra.Interfaces.Exceptions
 {
     public interface IProductionInternalException : IInternalException
     {

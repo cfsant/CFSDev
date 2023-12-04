@@ -1,4 +1,4 @@
-﻿namespace Backend.Infra.Interfaces.Exceptions
+﻿namespace CFSDev.Backend.Infra.Interfaces.Exceptions
 {
     public interface IDeveloperInternalException : IInternalException
     {
