@@ -9,6 +9,10 @@
 **/Backend/Infra/Interfaces/Exceptions/Internal/obj/*
 **/Backend/Infra/Implementations/Base/obj/*
 **/Backend/Infra/Implementations/Base/bin/*
+**/Backend/Infra/Implementations/Exceptions/bin/*
+**/Backend/Infra/Implementations/Exceptions/obj/*
+**/Backend/Infra/Implementations/Exceptions/Internal/bin/*
+**/Backend/Infra/Implementations/Exceptions/Internal/obj/*
 **/Libs/Cryptography/obj/*
 **/Libs/Cryptography/bin/*
 **/UnitTests/Libs/Cryptography.Tests/obj/*
